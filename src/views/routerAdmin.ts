@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
-const router = express.Router();
-import memberController from './controllers/member.controller'
+const routerAdmin = express.Router();
+import restaurantController from '../controllers/restaurant.controller';
 
 // router.get("/", (req: Request, res: Response) => {
 //     res.send("Home Page");
@@ -11,8 +11,8 @@ import memberController from './controllers/member.controller'
 // router.get("/signup", (req: Request, res: Response) => {
 //     res.send("Signup Page");
 // });
-// router.get("/", memberController.goHome);
-// router.get("/login", memberController.getLogin);
-// router.get("/signup", memberController.getSignup);
+routerAdmin.get("/", restaurantController.goHome);
+routerAdmin.get("/login", restaurantController.getLogin);
+routerAdmin.get("/signup", restaurantController.getSignup);
 
-export default router;
+export default routerAdmin;
