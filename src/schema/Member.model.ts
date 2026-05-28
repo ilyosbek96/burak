@@ -1,7 +1,8 @@
 import mongoose, {Schema} from "mongoose";
 import { MemberStatus, MemberType } from "../libs/types/enums/member.enum";
 
-// Schema first & Code first methodlar bor. Biz Code first methodni ishlatamiz. Code first methodda biz avval modelni yaratamiz va undan keyin shu model asosida schema yaratamiz. Schema first methodda esa avval schema yaratamiz va undan keyin shu schema asosida model yaratamiz.
+// Schema first & Code first methodlar bor. Biz  Schema first methodda esa avval schema yaratamiz va undan keyin shu schema asosida model yaratamiz.
+// Code first methodni. Code first methodda biz avval modelni yaratamiz va undan keyin shu model asosida schema yaratamiz.
 
 const memberSchema = new Schema({
     memberType: {
