@@ -1,3 +1,14 @@
+/* Project Standartlar:
+   - Logging standardlar
+   - Naming standardlar
+       function, method, variable => CAMEL
+       class => PASCAL
+       folder => KEBAB
+       CSS => SNAKE
+  - Error handling
+*/
+
+
 //Mitask------L
 function reverseSentence(sentence: string): string {
   return sentence
