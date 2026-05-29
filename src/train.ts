@@ -18,3 +18,10 @@ function getSquareNumbers(arr: number[]): { number: number; square: number }[] {
 
 
 console.log(getSquareNumbers([1, 2, 3]));
+console.log("========= MITASK N =========")
+function palindromCheck(str: string): boolean {
+    return str === str.split("").reverse().join("");
+}
+
+console.log(palindromCheck("dad"));   // true
+console.log(palindromCheck("son"));   // false
