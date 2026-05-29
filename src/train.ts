@@ -23,5 +23,5 @@ function palindromCheck(str: string): boolean {
     return str === str.split("").reverse().join("");
 }
 
-console.log(palindromCheck("dad"));   // true
-console.log(palindromCheck("son"));   // false
+console.log(palindromCheck("dad"));   
+console.log(palindromCheck("son"));  
