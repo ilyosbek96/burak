@@ -37,8 +37,7 @@ const memberSchema = new Schema({
 
      memberImage: {
         type: String,
-        index: {unique: true, sparse: true},
-        required: true,
+        
     },
 
      memberAddress: {

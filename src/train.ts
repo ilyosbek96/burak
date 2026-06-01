@@ -8,6 +8,12 @@
   - Error handling
 */
 
+//============= API APLIKESHIN PROGRAMMING INTERFEYS =============
+/** 
+ TREDITIONAL API
+ REST API
+ GraphQL API
+*/
 
 //Mitask------L
 function reverseSentence(sentence: string): string {
