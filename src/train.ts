@@ -42,3 +42,19 @@ function palindromCheck(str: string): boolean {
 
 console.log(palindromCheck("dad"));   // true
 console.log(palindromCheck("son"));   // false
+//Mitask------O
+console.log("MITASK-O")
+function calculateSumOfNumbers(arr: any[]): number {
+  let sum = 0;
+
+  for (const item of arr) {
+    if (typeof item === "number") {
+      sum += item;
+    }
+  }
+
+  return sum;
+}
+
+
+console.log(calculateSumOfNumbers([10, "10", {son: 10},  true, 35])); //
