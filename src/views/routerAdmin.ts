@@ -11,8 +11,13 @@ import restaurantController from '../controllers/restaurant.controller';
 // router.get("/signup", (req: Request, res: Response) => {
 //     res.send("Signup Page");
 // });
-routerAdmin.get("/", restaurantController.goHome);
-routerAdmin.get("/login", restaurantController.getLogin);
-routerAdmin.get("/signup", restaurantController.getSignup);
 
+/** Restaurant */ 
+routerAdmin.get("/", restaurantController.goHome);
+routerAdmin.get("/login", restaurantController.getLogin).post("/login", restaurantController.processLogin);
+// routerAdmin.post("/login", restaurantController.processLogin);
+routerAdmin.get("/signup", restaurantController.getSignup).post("/signup",restaurantController.processSignup);
+
+/** Product */ 
+/** User */ 
 export default routerAdmin;
