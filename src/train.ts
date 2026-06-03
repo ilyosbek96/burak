@@ -15,6 +15,12 @@
  GraphQL API
 */
 
+// ================ developlementlar ================
+/** 
+ Traditional frontend development => BSSR(admin) qisqacha SSR => EJS
+ Modert FD => SPA (user aplekeshin) SINGLE PAGE APLIKESHIN => REACT
+*/
+
 //Mitask------L
 function reverseSentence(sentence: string): string {
   return sentence

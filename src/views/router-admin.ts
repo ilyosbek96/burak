@@ -1,6 +1,6 @@
-import express, {Request, Response} from "express";
+import express, { Request, Response } from "express";
 const routerAdmin = express.Router();
-import restaurantController from '../controllers/restaurant.controller';
+import restaurantController from "../controllers/restaurant.controller";
 
 // router.get("/", (req: Request, res: Response) => {
 //     res.send("Home Page");
@@ -12,12 +12,16 @@ import restaurantController from '../controllers/restaurant.controller';
 //     res.send("Signup Page");
 // });
 
-/** Restaurant */ 
+/** Restaurant */
 routerAdmin.get("/", restaurantController.goHome);
-routerAdmin.get("/login", restaurantController.getLogin).post("/login", restaurantController.processLogin);
+routerAdmin
+  .get("/login", restaurantController.getLogin)
+  .post("/login", restaurantController.processLogin);
 // routerAdmin.post("/login", restaurantController.processLogin);
-routerAdmin.get("/signup", restaurantController.getSignup).post("/signup",restaurantController.processSignup);
+routerAdmin
+  .get("/signup", restaurantController.getSignup)
+  .post("/signup", restaurantController.processSignup);
 
-/** Product */ 
-/** User */ 
+/** Product */
+/** User */
 export default routerAdmin;

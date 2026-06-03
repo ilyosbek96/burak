@@ -1,6 +1,6 @@
-import express, {Request, Response} from "express";
+import express, { Request, Response } from "express";
 const router = express.Router();
-import memberController from './controllers/member.controller'
+import memberController from "./controllers/member.controller";
 
 // router.get("/", (req: Request, res: Response) => {
 //     res.send("Home Page");
@@ -14,5 +14,10 @@ import memberController from './controllers/member.controller'
 // router.get("/", memberController.goHome);
 // router.get("/login", memberController.getLogin);
 // router.get("/signup", memberController.getSignup);
+
+// call qismi
+router.post("/login", memberController.login);
+// routerAdmin.post("/login", restaurantController.processLogin);
+router.post("/signup", memberController.signup);
 
 export default router;
