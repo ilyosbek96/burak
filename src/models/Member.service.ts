@@ -49,8 +49,10 @@ class MemberService {
       input.memberPassword,
       member.memberPassword,
     );
-    // const isMatch = input.memberPassword === member.memberPassword;
-    // console.log("isMatch:", isMatch);
+    /* ============ parolni tekshirish ============
+    const isMatch = input.memberPassword === member.memberPassword;
+     console.log("isMatch:", isMatch);
+     */
     if (!isMatch) {
       throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
     }
