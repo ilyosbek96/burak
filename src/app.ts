@@ -1,13 +1,13 @@
 import express from "express";
 import path from "path";
 import router from "./router";
-import routerAdmin from "./views/router-admin";
+import routerAdmin from "./router-admin";
 import morgan from "morgan";
 import { MORGAN_FORMAT } from "./libs/types/config";
 
 /** 1-ENTRANCE kirish bo'limi **/
 const app = express();
-console.log("__dirname:", __dirname);
+// console.log("__dirname:", __dirname);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
