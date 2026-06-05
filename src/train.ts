@@ -68,3 +68,14 @@ function objectToArray(obj: { [key: string]: any }): [string, any][] {
 }
 
 console.log(objectToArray({ a: 10, b: 20 }));
+
+// =================== MITASK Q ===================
+console.log("======== MITASK-Q =======");
+function hasProperty(obj: object, key: string): boolean {
+  return key in obj;
+}
+console.log(hasProperty({ name: "BMW" }, "name"));
+function hasPropert(obj: object, key: string) {
+  return key in obj;
+}
+console.log(hasPropert({ name: "ILYOSBEK" }, "name"));
