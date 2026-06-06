@@ -1,5 +1,5 @@
 // CONTROLLERLARNI doim OBJECTlar orqalik quramiz
-import { Member } from "../libs/types/member";
+import { AdminRequest, Member } from "../libs/types/member";
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
@@ -39,7 +39,10 @@ restaurantController.getLogin = (req: Request, res: Response) => {
   }
 };
 
-restaurantController.processSignup = async (req: Request, res: Response) => {
+restaurantController.processSignup = async (
+  req: AdminRequest,
+  res: Response,
+) => {
   try {
     console.log("processSignup");
     console.log("body", req.body);
@@ -47,20 +50,31 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
     newMember.memberType = MemberType.RESSTAURANT;
     const result = await memberService.processSignup(newMember); // await (async) birga ishlatiladi
     // TODO: SESSIONS AUTHENTICATION
-    res.send(result);
+
+    req.session.member = result;
+    req.session.save(function () {
+      res.send(result);
+    });
   } catch (err: any) {
     console.log("Error, processSignup:", err);
     res.send(err);
   }
 };
-restaurantController.processLogin = async (req: Request, res: Response) => {
+restaurantController.processLogin = async (
+  req: AdminRequest,
+  res: Response,
+) => {
   try {
     console.log("processLogin");
     console.log("body:", req.body);
     const input: LoginInput = req.body;
     const result = await memberService.processLogin(input);
     // TODO: SESSIONS AUTHENTICATION
-    res.send(result);
+
+    req.session.member = result;
+    req.session.save(function () {
+      res.send(result);
+    });
   } catch (err) {
     console.log("Error, processLogin:", err);
     res.send(err);
