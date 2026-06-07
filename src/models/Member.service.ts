@@ -81,17 +81,21 @@ class MemberService {
       throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
     }
   }
+  /** define
+   promise => async method bo'lsa promise<> ishlatiladi kutish degani
+   * */
+
   public async processLogin(input: LoginInput): Promise<Member> {
     const member = await this.memberModel
       .findOne(
-        { memberNick: input.memberNick },
-        { memberNick: 1, memberPassword: 1 },
+        { memberNick: input.memberNick }, // FILTER yani memberNick ni inputdan kelgan memberNick ga teng bo'lganini top degani
+        { memberNick: 1, memberPassword: 1 }, // PROJECTION, yani memberNick va memberPassword ni olib kel degani
       )
       .exec(); // findOne 2chi argumenttidan foydalanib maxfiy narsani misol memberNick memberPassword (1) raqam qoyib chaqirib oldik (0) raqam qoyilsa olib tashlaydi
 
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK); // agar error bo'lsa
 
-    // ============== {bcrypt.compare} orqalik asl parolni chiqarib olish oli
+    // ============== {bcrypt.compare} nima: asl parolni chiqarib olish yoki tekshirish uchun ishlatiladi, yani inputdan kelgan parolни (memberPassword) va bazadan olingan parolni (member.memberPassword) solishtirib tekshiradi, agar ular mos kelsa true qaytaradi, aks holda false qaytaradi
     const isMatch = await bcrypt.compare(
       input.memberPassword,
       member.memberPassword,

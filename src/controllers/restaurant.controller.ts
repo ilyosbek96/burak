@@ -41,7 +41,7 @@ restaurantController.getLogin = (req: Request, res: Response) => {
     res.redirect("/admin");
   }
 };
-
+// define qilgan methodlarni restaurantController obyektiga biriktirib chiqamiz
 restaurantController.processSignup = async (
   req: AdminRequest,
   res: Response,
@@ -67,6 +67,7 @@ restaurantController.processSignup = async (
     );
   }
 };
+// define
 restaurantController.processLogin = async (
   req: AdminRequest,
   res: Response,
@@ -75,7 +76,7 @@ restaurantController.processLogin = async (
     console.log("processLogin");
     console.log("body:", req.body);
     const input: LoginInput = req.body;
-    const result = await memberService.processLogin(input);
+    const result = await memberService.processLogin(input); // call
     // TODO: SESSIONS AUTHENTICATION
 
     req.session.member = result;

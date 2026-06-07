@@ -18,8 +18,8 @@ const store = new MongoDBStore({
 const app = express();
 // console.log("__dirname:", __dirname);
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // middleware DP > traditional api support qilish uchun kerak bo'ladi, chunki frontenddan kelayotgan ma'lumotlar urlencoded formatida bo'ladi, uni js objectga aylantirish uchun kerak bo'ladi
+app.use(express.json()); // middleware DP > rest api support qilish uchun kerak bo'ladi, chunki frontenddan kelayotgan ma'lumotlar json formatida bo'ladi, uni js objectga aylantirish uchun kerak bo'ladi
 app.use(morgan(MORGAN_FORMAT)); // (\n hegingi qatorga o'tish degani)
 
 /** 2-SESSIONS **/
