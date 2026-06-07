@@ -28,6 +28,7 @@ restaurantController.getSignup = (req: Request, res: Response) => {
     res.render("signup");
   } catch (err) {
     console.log("Error, getSignup:", err);
+    res.redirect("/admin");
   }
 };
 restaurantController.getLogin = (req: Request, res: Response) => {
@@ -37,6 +38,7 @@ restaurantController.getLogin = (req: Request, res: Response) => {
     res.render("login");
   } catch (err) {
     console.log("Error, getLogin:", err);
+    res.redirect("/admin");
   }
 };
 
@@ -58,7 +60,11 @@ restaurantController.processSignup = async (
     });
   } catch (err: any) {
     console.log("Error, processSignup:", err);
-    res.send(err);
+    const message =
+      err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      `<script> alert("${message}") window.location.replace('admin/signup) </script>`,
+    );
   }
 };
 restaurantController.processLogin = async (
@@ -78,9 +84,29 @@ restaurantController.processLogin = async (
     });
   } catch (err) {
     console.log("Error, processLogin:", err);
-    res.send(err);
+    const message =
+      err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      `<script> alert("${message}") window.location.replace('admin/login) </script>`,
+    );
   }
 };
+
+restaurantController.logout = async (req: AdminRequest, res: Response) => {
+  try {
+    console.log("logout");
+    console.log("body:", req.body);
+
+    // TODO: SESSIONS AUTHENTICATION
+    req.session.destroy(function () {
+      res.redirect("/admin");
+    });
+  } catch (err) {
+    console.log("Error, logout:", err);
+    res.redirect("/admin");
+  }
+};
+
 restaurantController.checkAuthSession = async (
   req: AdminRequest,
   res: Response,
