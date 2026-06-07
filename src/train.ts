@@ -8,14 +8,14 @@
   - Error handling
 */
 
-//============= API APLIKESHIN PROGRAMMING INTERFEYS =============
+//============= Request API APLIKESHIN PROGRAMMING INTERFEYS =============
 /** 
  TREDITIONAL API
  REST API
  GraphQL API
 */
 
-// ================ developlementlar ================
+// ================ Fronend developlementlar ================
 /** 
  Traditional frontend development => BSSR(admin) qisqacha SSR => EJS
  Modert FD => SPA (user aplekeshin) SINGLE PAGE APLIKESHIN => REACT
@@ -25,6 +25,11 @@
  request join (requestni ichiga o'zini jolavoladi )
  self destroy (o'zini o'zi destroy qila oladi)
 
+ */
+/**validation
+  Fronten
+  Backend
+  Database
  */
 
 //Mitask------L
