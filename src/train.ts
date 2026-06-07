@@ -21,6 +21,12 @@
  Modert FD => SPA (user aplekeshin) SINGLE PAGE APLIKESHIN => REACT
 */
 
+/** cookies
+ request join (requestni ichiga o'zini jolavoladi )
+ self destroy (o'zini o'zi destroy qila oladi)
+
+ */
+
 //Mitask------L
 function reverseSentence(sentence: string): string {
   return sentence

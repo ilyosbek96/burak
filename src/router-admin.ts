@@ -11,16 +11,24 @@ import restaurantController from "./controllers/restaurant.controller";
 // router.get("/signup", (req: Request, res: Response) => {
 //     res.send("Signup Page");
 // });
+//=================================// RUTER METHODLARI VAZIFASI =================================//
+// get pagega yuborish
+// POST login yoki signup tugmasi bosilganda ma'lumotlarni olish va bazaga saqlash yoki tekshirish uchun ishlatiladi
+
+// ulanish: frontend => backend => databesa xamasi MVC (MODEL VIEW CONTROLLER) arxitektura asosida ishlaydi. ROUTER => CONTROLLER => SERVICE => MODEL => DATABASE
+// biz traditoinal dan foydalanyapmiz ani json manoni javascript object notation
 
 /** Restaurant */
 routerAdmin.get("/", restaurantController.goHome);
 routerAdmin
   .get("/login", restaurantController.getLogin)
-  .post("/login", restaurantController.processLogin);
+  .post("/login", restaurantController.processLogin); // o'qilishi post methodi xamda login pointi qanoatlantirilsa restaurantControllerobyektini processlogin methodini chaqiradi
 // routerAdmin.post("/login", restaurantController.processLogin);
 routerAdmin
   .get("/signup", restaurantController.getSignup)
   .post("/signup", restaurantController.processSignup);
+routerAdmin.get("/logout", restaurantController.logout);
+routerAdmin.get("/check_me", restaurantController.checkAuthSession);
 
 /** Product */
 /** User */
