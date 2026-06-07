@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express";
 const routerAdmin = express.Router();
 import restaurantController from "./controllers/restaurant.controller";
+import productController from "./controllers/product.controller";
+import makeUploader from "./libs/utils/uploader";
 
 // router.get("/", (req: Request, res: Response) => {
 //     res.send("Home Page");
@@ -26,10 +28,32 @@ routerAdmin
 // routerAdmin.post("/login", restaurantController.processLogin);
 routerAdmin
   .get("/signup", restaurantController.getSignup)
-  .post("/signup", restaurantController.processSignup);
+  .post(
+    "/signup",
+    makeUploader("members").single("memberImage"),
+    restaurantController.processSignup,
+  );
 routerAdmin.get("/logout", restaurantController.logout);
 routerAdmin.get("/check_me", restaurantController.checkAuthSession);
 
 /** Product */
+routerAdmin.get(
+  "/product/all",
+  restaurantController.verifyRestaurant,
+  productController.createNewProduct,
+);
+routerAdmin.post(
+  "/product/create",
+  restaurantController.verifyRestaurant,
+  // uploadProductImage.single("productImage"), // file yuklash
+  makeUploader("products").array("productImages", 5), // (single 1-rasm yuklaydi) array => ko'p rasm yuklaydi raqam kiritib qo'ish keraak(5 vh)
+  productController.createNewProduct,
+);
+routerAdmin.post(
+  "/product/:id",
+  restaurantController.verifyRestaurant,
+  productController.updateChosenProduct,
+);
+
 /** User */
 export default routerAdmin;
