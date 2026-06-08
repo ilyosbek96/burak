@@ -90,3 +90,17 @@ function hasPropert(obj: object, key: string) {
   return key in obj;
 }
 console.log(hasPropert({ name: "ILYOSBEK" }, "name"));
+
+// =================== MITASK R ===================
+console.log("======== MITASK-R =======");
+function calculate(str: string): number {
+  const [a, operator, b] = str.split(" ");
+
+  if (operator === "+") {
+    return Number(a) + Number(b);
+  }
+
+  throw new Error("Noto'g'ri operator");
+}
+
+console.log(calculate("1 + 3")); // 4
