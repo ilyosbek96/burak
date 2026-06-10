@@ -24,7 +24,7 @@ import makeUploader from "./libs/utils/uploader";
 routerAdmin.get("/", restaurantController.goHome);
 routerAdmin
   .get("/login", restaurantController.getLogin)
-  .post("/login", restaurantController.processLogin); // o'qilishi post methodi xamda login pointi qanoatlantirilsa restaurantControllerobyektini processlogin methodini chaqiradi
+  .post("/login", restaurantController.processLogin); // o'qilishi post methodi xamda login pointi qanoatlantirilsa restaurantControllerobyektini processlogin methodini (caal qilib) chaqiradi
 // routerAdmin.post("/login", restaurantController.processLogin);
 routerAdmin
   .get("/signup", restaurantController.getSignup)

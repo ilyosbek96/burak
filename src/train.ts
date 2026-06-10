@@ -23,7 +23,7 @@
 
 /** cookies
  request join (requestni ichiga o'zini jolavoladi )
- self destroy (o'zini o'zi destroy qila oladi)
+ self destroy (o'zini o'zi  destroy o'ldira qila oladi)
 
  */
 /**validation
@@ -104,3 +104,19 @@ function calculate(str: string): number {
 }
 
 console.log(calculate("1 + 3")); // 4
+// =================== MITASK S ===================
+console.log("======== MITASK-S =======");
+
+function missingNumber(arr: number[]): number {
+  arr.sort((a, b) => a - b);
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== i) {
+      return i;
+    }
+  }
+
+  return arr.length;
+}
+
+console.log(missingNumber([3, 0, 1]));
