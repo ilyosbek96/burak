@@ -120,3 +120,4 @@ function missingNumber(arr: number[]): number {
 }
 
 console.log(missingNumber([3, 0, 1]));
+// =================== MITASK  ===================
