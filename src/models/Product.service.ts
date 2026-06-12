@@ -6,7 +6,7 @@ import {
   ProductUpdateInput,
 } from "../libs/types/product";
 // import ProductModel from "../schema/Product.model";
-import ProductModel from "../schema/Product.model";
+import ProductModel from "../schema/product.model";
 
 class ProductService {
   private readonly productModel;
