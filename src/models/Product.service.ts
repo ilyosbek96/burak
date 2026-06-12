@@ -5,6 +5,7 @@ import {
   ProductInput,
   ProductUpdateInput,
 } from "../libs/types/product";
+// import ProductModel from "../schema/Product.model";
 import ProductModel from "../schema/Product.model";
 
 class ProductService {
