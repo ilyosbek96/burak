@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import { LoginInput, Member, MemberInput } from "../libs/types/member";
 import MemberService from "../models/Member.service";
-import Errors from "../libs/Error";
+import Errors from "../libs/Errors";
 
 // REACT SPA SINGL PAGE APLICATION
 const memberService = new MemberService();

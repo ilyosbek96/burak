@@ -5,7 +5,7 @@ import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
 import { LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
-import { Message } from "../libs/Error";
+import Errors, { HttpCode, Message } from "../libs/Errors";
 
 // obshitga chaqirib olish controllerni
 const memberService = new MemberService();
@@ -48,20 +48,30 @@ restaurantController.processSignup = async (
 ) => {
   try {
     console.log("processSignup");
+    const file = req.file;
+    if (!file)
+      throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+
+    /** ulanishni tekshirish
+     console.log("file:", file);
+    throw new Error("Foreced Quit");
+    */
+
     console.log("body", req.body);
     const newMember: MemberInput = req.body;
+    newMember.memberImage = file?.path;
     newMember.memberType = MemberType.RESSTAURANT;
     const result = await memberService.processSignup(newMember); // await (async) birga ishlatiladi
     // TODO: SESSIONS AUTHENTICATION
 
     req.session.member = result;
     req.session.save(function () {
-      res.send(result);
+      res.redirect("/admin/product/all");
     });
   } catch (err: any) {
     console.log("Error, processSignup:", err);
     const message =
-      err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG;
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
       `<script> alert("${message}") window.location.replace('admin/signup) </script>`,
     );
@@ -81,12 +91,12 @@ restaurantController.processLogin = async (
 
     req.session.member = result;
     req.session.save(function () {
-      res.send(result);
+      res.redirect("/admin/product/all");
     });
   } catch (err) {
     console.log("Error, processLogin:", err);
     const message =
-      err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG;
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
       `<script> alert("${message}") window.location.replace('admin/login) </script>`,
     );

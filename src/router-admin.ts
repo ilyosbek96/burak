@@ -40,7 +40,7 @@ routerAdmin.get("/check-me", restaurantController.checkAuthSession);
 routerAdmin.get(
   "/product/all",
   restaurantController.verifyRestaurant,
-  productController.createNewProduct,
+  productController.getAllProducts,
 );
 routerAdmin.post(
   "/product/create",
