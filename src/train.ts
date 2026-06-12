@@ -120,4 +120,11 @@ function missingNumber(arr: number[]): number {
 }
 
 console.log(missingNumber([3, 0, 1]));
-// =================== MITASK  ===================
+// =================== MITAS T  ===================
+console.log("======== MITASK-T =======");
+
+function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+  return [...arr1, ...arr2].sort((a, b) => a - b);
+}
+
+console.log(mergeSortedArrays([0, 3, 4], [4, 6]));
