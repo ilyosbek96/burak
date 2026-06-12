@@ -50,7 +50,7 @@ routerAdmin.post(
   productController.createNewProduct,
 );
 routerAdmin.post(
-  "/product/:id",
+  "/product/:id", // requestni ichidam  paramsni qabul qilib olyapmiz
   restaurantController.verifyRestaurant,
   productController.updateChosenProduct,
 );

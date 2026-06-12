@@ -63,7 +63,7 @@ class MemberService {
   // Promise => async method bo'lsa promise<> ishlatiladi
   public async processSignup(input: MemberInput): Promise<Member> {
     const exist = await this.memberModel
-      .findOne({ memberType: MemberType.RESSTAURANT })
+      .findOne({ memberType: MemberType.RESTAURANT })
       .exec();
     // console.log("exist", exist);
     if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);

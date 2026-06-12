@@ -60,7 +60,7 @@ restaurantController.processSignup = async (
     console.log("body", req.body);
     const newMember: MemberInput = req.body;
     newMember.memberImage = file?.path;
-    newMember.memberType = MemberType.RESSTAURANT;
+    newMember.memberType = MemberType.RESTAURANT;
     const result = await memberService.processSignup(newMember); // await (async) birga ishlatiladi
     // TODO: SESSIONS AUTHENTICATION
 
@@ -140,13 +140,13 @@ restaurantController.verifyRestaurant = (
   res: Response,
   next: NextFunction,
 ) => {
-  if (req.session.member?.memberType === MemberType.RESSTAURANT) {
+  if (req.session?.member?.memberType === MemberType.RESTAURANT) {
     req.member = req.session.member;
     next(); // next(); albatta qo'yilishi kerak bo'lmasam abnavleniya bo'p turoradi
   } else {
     const message = Message.NOT_AUTHENTICATED;
     res.send(
-      `<script> alert("${Message.NOT_AUTHENTICATED}"); window.location.replace("/admin/login") </script>`,
+      `<script> alert("${message}"); window.location.replace("/admin/login") </script>`,
     );
   }
 };
