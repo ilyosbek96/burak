@@ -34,6 +34,8 @@ export interface LoginInput {
 }
 
 export interface AdminRequest extends Request {
+  // interface deganimiz yangi type yaratish uchun ishlatiladi, AdminRequest ni Requestga tenglashtirish kerak bo'ladi, chunki bu controllerda AdminRequest ishlatiladi, shuning uchun uni yaratish kerak bo'ladi, member: Member ni member ga tenglashtirish kerak bo'ladi, chunki bu controllerda member ishlatiladi, session: Session & { member: Member } ni session ga tenglashtirish kerak bo'ladi, chunki bu controllerda session ishlatiladi, file: Express.Multer.File ni file ga tenglashtirish kerak bo'ladi, chunki bu controllerda file ishlatiladi, files: Express.Multer.File[] ni files ga tenglashtirish kerak bo'ladi, chunki bu controllerda files ishlatiladi
+
   member: Member;
   session: Session & { member: Member };
   file: Express.Multer.File;
