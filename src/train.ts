@@ -18,7 +18,7 @@
 // ================ Fronend developlementlar ================
 /** 
  Traditional frontend development => BSSR(admin) qisqacha SSR => EJS
- Modert FD => SPA (user aplekeshin) SINGLE PAGE APLIKESHIN => REACT
+ Modern FD => SPA (user aplekeshin) SINGLE PAGE APLIKESHIN => REACT
 */
 
 /** cookies
