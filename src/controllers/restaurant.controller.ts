@@ -61,6 +61,9 @@ restaurantController.processSignup = async (
     const file = req.file;
     if (!file)
       throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+    // if (!req.body.name) {
+    //   return res.status(400).json({ error: "Name is required" });
+    // }
 
     /** ulanishni tekshirish
      console.log("file:", file);
