@@ -12,7 +12,7 @@ class MemberService {
   constructor() {
     this.memberModel = MemberModel;
   }
-
+  // **============================== SPA => SINGLE PAGE APLICATION =============================== */
   /** SPA */ // REACT
   public async signup(input: MemberInput): Promise<Member> {
     const salt = await bcrypt.genSalt();
@@ -56,9 +56,8 @@ class MemberService {
     // return result;
   }
 
-  ////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////
-
+  //**======================================================================== */
+  // bssr manosi backend server side rendering yani backendda frontendni qurvolish uni EJS ORQALIK QILAMIZ
   /** =================== (BSSR), SSR =================*/
   // Promise => async method bo'lsa promise<> ishlatiladi
   public async processSignup(input: MemberInput): Promise<Member> {

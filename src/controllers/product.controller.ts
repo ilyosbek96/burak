@@ -1,36 +1,53 @@
-import { Request, Response } from "express";
-import Errors, { HttpCode, Message } from "../libs/Errors";
-import { T } from "../libs/types/common";
-import ProductService from "../models/Product.service";
-import { ProductInput } from "../libs/types/product";
-import { AdminRequest } from "../libs/types/member";
+/* ================================ import { Request, Response } from "express"; ============================*/
+import { Request, Response } from "express"; // iport qilish kerak bo'ladi, chunki bu controllerda req va res ishlatiladi, shuning uchun ularni import qilish kerak bo'ladi
+
+/* ======================== iimport Errors, { HttpCode, Message } from "../libs/Errors"; ===================*/
+import Errors, { HttpCode, Message } from "../libs/Errors"; // Errors, HttpCode, Message import qilish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun Errors, HttpCode, Message ishlatiladi, shuning uchun ularni import qilish kerak bo'ladi
+
+/* ======================== import { T } from "../libs/types/common";  ===================*/
+import { T } from "../libs/types/common"; // T import qilish kerak bo'ladi, chunki bu controllerda T tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
+
+/* ======================== import ProductService from "../models/Product.service"; ===================*/
+import ProductService from "../models/Product.service"; // ProductService import qilish kerak bo'ladi, chunki bu controllerda ProductService ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
+
+/* ======================== import { ProductInput } from "../libs/types/product"; ===================*/
+import { ProductInput } from "../libs/types/product"; // ProductInput import qilish kerak bo'ladi, chunki bu controllerda ProductInput tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
+
+/* ======================== import { AdminRequest } from "../libs/types/member"; ===================*/
+import { AdminRequest } from "../libs/types/member"; // AdminRequest import qilish kerak bo'ladi, chunki bu controllerda AdminRequest tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
 // =============================== test ===========================
 // import { AdminRequest } from "../libs/types/member";
 
-const productService = new ProductService();
+/* ======================== const productService = new ProductService(); ===================*/
+const productService = new ProductService(); // ProductService dan yangi instance yaratish kerak bo'ladi, chunki bu controllerda ProductService ishlatiladi, shuning uchun uni yaratish kerak bo'ladi
 
-const productController: T = {};
+/* ======================== const productController: T = {};  ===================*/
+const productController: T = {}; // productController ni T tipida bo'sh objectga tenglashtirish kerak bo'ladi, chunki bu controllerda productController ishlatiladi, shuning uchun uni yaratish kerak bo'ladi
 // =============================== test ===========================
 // productController.getAllProducts = async (req: AdminRequest, res: Response)
 
 /** SPA => SINGLE PAGE APLICATION */
 
 /** SSR */
+/* productController.getAllProducts ni async functionga tenglashtirish kerak bo'ladi, chunki bu controllerda getAllProducts ishlatiladi, shuning uchun uni yaratish kerak bo'ladi parametr sifatida req va res arrow function orqalik try catch operatsiyasini amalga oshirish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun try catch operatsiyasi ishlatiladi, shuning uchun uni yaratish kerak bo'ladi */
 productController.getAllProducts = async (req: Request, res: Response) => {
   try {
     console.log("getAllProducts");
-    const data = await productService.getAllProducts();
+    const data = await productService.getAllProducts(); // productService dan getAllProducts methodini chaqirish kerak bo'ladi, chunki bu controllerda getAllProducts ishlatiladi, shuning uchun uni chaqirish kerak bo'ladi
     // console.log("data:", data);
     // =============================== test ===========================
     // console.log("req.member:", req.member);
-    res.render("products", { products: data });
+    res.render("products", { products: data }); // products nomli viewni render qilish kerak bo'ladi, chunki bu controllerda products view ishlatiladi, shuning uchun uni render qilish kerak bo'ladi, parametr sifatida products nomli o'zgaruvchini data ga tenglashtirish kerak bo'ladi, chunki bu controllerda data ishlatiladi, shuning uchun uni products nomli o'zgaruvchiga tenglashtirish kerak bo'ladi
   } catch (err: any) {
+    // xatoliklarni boshqarish uchun catch block yaratish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun try catch operatsiyasi ishlatiladi, shuning uchun uni yaratish kerak bo'ladi, parametr sifatida err ni any tipida olish kerak bo'ladi, chunki bu controllerda err ishlatiladi, shuning uchun uni any tipida olish kerak bo'ladi
     console.log("Error, getAllProducts:", err);
-    if (err instanceof Errors) res.status(err.code).json(err);
-    else res.status(Errors.standard.code).json(Errors.standard);
+    if (err instanceof Errors)
+      res.status(err.code).json(err); // if block yaratish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun if block ishlatiladi, shuning uchun uni yaratish kerak bo'ladi, agar err Errors instance bo'lsa res statusini err.code ga tenglashtirish va json formatida err ni qaytarish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun if block ishlatiladi, shuning uchun uni yaratish kerak bo'ladi
+    else res.status(Errors.standard.code).json(Errors.standard); // else block yaratish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun else block ishlatiladi, shuning uchun uni yaratish kerak bo'ladi, agar err Errors instance bo'lmasa res statusini Errors.standard.code ga tenglashtirish va json formatida Errors.standard ni qaytarish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun else block ishlatiladi, shuning uchun uni yaratish kerak bo'ladi
     // res.json({});
   }
 };
+
 productController.createNewProduct = async (
   req: AdminRequest,
   res: Response,
@@ -46,7 +63,7 @@ productController.createNewProduct = async (
       return ele.path;
     });
 
-    await productService.createNewProduct(data);
+    await productService.createNewProduct(data); // await productService dan createNewProduct methodini chaqirish kerak bo'ladi, chunki bu controllerda createNewProduct ishlatiladi, shuning uchun uni chaqirish kerak bo'ladi, parametr sifatida data ni uzatish kerak bo'ladi, chunki bu controllerda data ishlatiladi, shuning uchun uni uzatish kerak bo'ladi
 
     res.send(
       `<script> alert("Sucessful creation!"); window.location.replace('admin/product/all) </script>`,
