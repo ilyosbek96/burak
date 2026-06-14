@@ -9,23 +9,33 @@ import Errors, { HttpCode, Message } from "../libs/Errors";
 
 // obshitga chaqirib olish controllerni
 const memberService = new MemberService();
-
+/* request manosi so'rov, response manosi javob, next manosi keyingi middlewarega o'tish uchun kerak bo'ladi, chunki bu controllerda middleware design pattern ishlatiladi, shuning uchun next manosi kerak bo'ladi */
 const restaurantController: T = {};
 restaurantController.goHome = (req: Request, res: Response) => {
   try {
     console.log("goHome");
     // res.send("Home Page");
     // RESPONSLAR => send | redirect | end | render
+    /** “send response” → javob yuborish
+     * redirect manosi yo'naltirish
+     * end manosi tugatish. “end response” → javob tugadi
+     * render manosi ko'rsatish. “javobni tayyorlab, ko‘rinadigan shaklda chiqarish”.
+      res.send("Home Page");
+     res.redirect("/admin/product/all");
+     res.end();
+      res.render("home");
+     */
     res.render("home");
   } catch (err) {
     console.log("Error, goHome:", err);
   }
 };
 restaurantController.getSignup = (req: Request, res: Response) => {
+  // getSignup ni functionga tenglashtirish kerak bo'ladi, chunki bu controllerda getSignup ishlatiladi, shuning uchun uni yaratish kerak bo'ladi parametr sifatida req va res arrow function orqalik try catch operatsiyasini amalga oshirish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun try catch operatsiyasi ishlatiladi, shuning uchun uni yaratish kerak bo'ladi
   try {
     console.log("getSignup");
     // res.send("Signup Page");
-    res.render("signup");
+    res.render("signup"); //
   } catch (err) {
     console.log("Error, getSignup:", err);
     res.redirect("/admin");
