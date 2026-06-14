@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true })); // middleware DP > traditional 
 app.use(express.json()); // middleware DP > rest api support qilish uchun kerak bo'ladi, chunki frontenddan kelayotgan ma'lumotlar json formatida bo'ladi, uni js objectga aylantirish uchun kerak bo'ladi
 app.use(morgan(MORGAN_FORMAT)); // (\n hegingi qatorga o'tish degani)
 
-/** 2-SESSIONS **/
+/** 2-SESSIONS **/ // Middleware sessionni ishlatish uchun kerak bo'ladi, chunki foydalanuvchi ma'lumotlarini saqlash va boshqarish uchun kerak bo'ladi, masalan, foydalanuvchi tizimga kirganida uning ma'lumotlarini saqlash va keyingi so'rovlarida bu ma'lumotlarni olish uchun kerak bo'ladi
 app.use(
   session({
     secret: String(process.env.SESSION_SECRET),
@@ -31,7 +31,14 @@ app.use(
       maxAge: 100 * 3600 * 3, // 3 soat devomida active bo'ladi
     },
     store: store,
-    resave: true,
+    resave: true, // authontication 10:30 dan 13:30 gacha kirsa bo'ladi 3saot davomida
+    /**======================= resave: true, ============================
+     * agar resave: true, bolsa misol 12:00da kirsak vaqt ozgaradi 15:00 gacha xar kirganimizda o'sha vaqtdan boshlab 3 saot degani
+     */
+    /**======================= resave: false, ============================
+     * agar resave: false, bolsa misol 12:00da kirsakxam vaqt o'zgarmaydi yani 13:30 gacha foydalansa bo'ladi
+     */
+
     saveUninitialized: true,
   }),
 );
