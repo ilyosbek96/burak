@@ -10,7 +10,7 @@
 
 //============= Request API APLIKESHIN PROGRAMMING INTERFEYS =============
 /** 
- TREDITIONAL API
+ TREDITIONAL API (form POST)
  REST API
  GraphQL API
 */
