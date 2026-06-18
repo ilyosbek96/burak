@@ -29,7 +29,9 @@ class ProductService {
     return result;
   }
 
-  public async createNewProduct(input: ProductInput): Promise<Product> {
+  public async createNewProduct(
+    input: ProductInput,
+  ) /** ProductInput tipiodagi input qabul qilanadi*/ : Promise<Product> {
     try {
       return await this.productModel.create(input);
     } catch (err) {
