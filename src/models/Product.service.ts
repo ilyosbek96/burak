@@ -42,9 +42,13 @@ class ProductService {
     input: ProductUpdateInput,
   ): Promise<Product> {
     // stringdi => objectIdga òzgartiramiz
-    id = shapeIntoMongooseObjectId(id);
+    id = shapeIntoMongooseObjectId(id); // "strinddi" object ("strinddi") aylantirib olyapmiz
     const result = await this.productModel
-      .findOneAndUpdate({ _id: id }, input, { new: true }) //{ new: true } yangi qiymatni qaytarish degani
+      .findOneAndUpdate(
+        { _id: id }, //filter
+        input,
+        { new: true },
+      ) // option { new: true } yangi qiymatni qaytarish degani
       .exec();
     if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
 
