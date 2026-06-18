@@ -46,7 +46,7 @@ class ProductService {
     const result = await this.productModel
       .findOneAndUpdate(
         { _id: id }, //filter
-        input,
+        input, // update
         { new: true },
       ) // option { new: true } yangi qiymatni qaytarish degani
       .exec();
