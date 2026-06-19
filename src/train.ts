@@ -128,3 +128,21 @@ function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
 }
 
 console.log(mergeSortedArrays([0, 3, 4], [4, 6]));
+
+// =================== MITAS V  ===================
+console.log("======== MITASK-V =======");
+function countChars(str: string): Record<string, number> {
+  const result: Record<string, number> = {};
+
+  for (const char of str) {
+    if (result[char]) {
+      result[char]++;
+    } else {
+      result[char] = 1;
+    }
+  }
+
+  return result;
+}
+
+console.log(countChars("hello"));
