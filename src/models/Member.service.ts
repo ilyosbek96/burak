@@ -1,10 +1,16 @@
 import MemberModel from "../schema/Member.model";
 
-import { LoginInput, Member, MemberInput } from "../libs/types/member";
+import {
+  LoginInput,
+  Member,
+  MemberInput,
+  MemberUpdateInput,
+} from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { MemberType } from "../libs/enums/member.enum";
 import { broadcastProtocol } from "node:stream/iter";
 import * as bcrypt from "bcryptjs";
+import { shapeIntoMongooseObjectId } from "../libs/config";
 
 // member va schema fayllar CLASS orqalik yasaladi
 class MemberService {
@@ -119,6 +125,15 @@ class MemberService {
       .exec();
 
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    return result;
+  }
+  public async updateChosenUser(input: MemberUpdateInput): Promise<Member> {
+    input._id = shapeIntoMongooseObjectId(input._id); // inputdan _idni qabul qilib olyapmiz
+    const result = await this.memberModel
+      .findByIdAndUpdate({ _id: input._id }, input, { new: true }) //memberType QIYMATI USER BOLGANINI IZLA DEGAN SHARTNI QOYYAPMIZ
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
     return result;
   }
 }
