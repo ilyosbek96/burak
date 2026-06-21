@@ -56,6 +56,8 @@ productController.createNewProduct = async (
   try {
     console.log("createNewProduct");
     // console.log("req.files:", req.files);
+    console.log("req.body:", req.body);
+
     if (!req.files?.length)
       throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATE_FAILED);
 
@@ -67,7 +69,7 @@ productController.createNewProduct = async (
     await productService.createNewProduct(data); // await productService dan createNewProduct methodini chaqirish kerak bo'ladi, chunki bu controllerda createNewProduct ishlatiladi, shuning uchun uni chaqirish kerak bo'ladi, parametr sifatida data ni uzatish kerak bo'ladi, chunki bu controllerda data ishlatiladi, shuning uchun uni uzatish kerak bo'ladi
 
     res.send(
-      `<script> alert("Sucessful creation!"); window.location.replace('admin/product/all) </script>`,
+      `<script> alert("Sucessful creation!"); window.location.replace('/admin/product/all') </script>`,
     );
 
     // console.log("data:", data);
@@ -78,7 +80,7 @@ productController.createNewProduct = async (
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.location.replace('admin/product/all) </script>`,
+      `<script> alert("${message}"); window.location.replace('/admin/product/all') </script>`,
     );
     // if (err instanceof Errors) res.status(err.code).json(err);
     // else res.status(Errors.standard.code).json(Errors.standard);
