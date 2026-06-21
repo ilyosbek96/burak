@@ -35,6 +35,7 @@ productController.getAllProducts = async (req: Request, res: Response) => {
     console.log("getAllProducts");
     const data = await productService.getAllProducts(); // productService dan getAllProducts methodini chaqirish kerak bo'ladi, chunki bu controllerda getAllProducts ishlatiladi, shuning uchun uni chaqirish kerak bo'ladi
     // console.log("data:", data);
+    console.log("products:", data);
     // =============================== test ===========================
     // console.log("req.member:", req.member);
     res.render("products", { products: data }); // products nomli viewni render qilish kerak bo'ladi, chunki bu controllerda products view ishlatiladi, shuning uchun uni render qilish kerak bo'ladi, parametr sifatida products nomli o'zgaruvchini data ga tenglashtirish kerak bo'ladi, chunki bu controllerda data ishlatiladi, shuning uchun uni products nomli o'zgaruvchiga tenglashtirish kerak bo'ladi
