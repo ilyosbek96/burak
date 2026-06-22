@@ -146,3 +146,19 @@ function countChars(str: string): Record<string, number> {
 }
 
 console.log(countChars("hello"));
+
+// =================== MITAS W  ===================
+console.log("======== MITASK-w =======");
+function chunkArray<T>(arr: T[], size: number): T[][] {
+  if (size <= 0) {
+    throw new Error("Size must be greater than 0");
+  }
+
+  const result: T[][] = [];
+  for (let i = 0; i < arr.length; i += size) {
+    result.push(arr.slice(i, i + size));
+  }
+  return result;
+}
+
+console.log(chunkArray([1, 2, 3, 4, 5], 2));
