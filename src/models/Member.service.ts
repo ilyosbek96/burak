@@ -7,7 +7,7 @@ import {
   MemberUpdateInput,
 } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import { MemberType } from "../libs/enums/member.enum";
+import { MemberStatus, MemberType } from "../libs/enums/member.enum";
 import { broadcastProtocol } from "node:stream/iter";
 import * as bcrypt from "bcryptjs";
 import { shapeIntoMongooseObjectId } from "../libs/config";
@@ -38,13 +38,19 @@ class MemberService {
     // TODO: Consider member status later
     const member = await this.memberModel
       .findOne(
-        { memberNick: input.memberNick },
-        { memberNick: 1, memberPassword: 1 },
+        {
+          memberNick: input.memberNick,
+          memberStatus: { $ne: MemberStatus.DELETE },
+        },
+        { memberNick: 1, memberPassword: 1, memberStatus: 1 },
       )
       .exec(); // findOne 2chi argumenttidan foydalanib maxfiy narsani misol memberNick memberPassword (1) raqam qoyib chaqirib oldik (0) raqam qoyilsa olib tashlaydi
 
-    if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK); // agar error bo'lsa
-
+    if (!member)
+      throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK); // agar error bo'lsa
+    else if (member.memberStatus === MemberStatus.BLOCK) {
+      throw new Errors(HttpCode.FORBIDDEN, Message.BLOCKED_USER);
+    }
     // ============== {bcrypt.compare} orqalik asl parolni chiqarib olish oli
     const isMatch = await bcrypt.compare(
       input.memberPassword,
