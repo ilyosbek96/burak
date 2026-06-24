@@ -162,3 +162,24 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
 }
 
 console.log(chunkArray([1, 2, 3, 4, 5], 2));
+
+// =================== MITAS X  ===================
+console.log("======== MITASK-X =======");
+function countOccurrences(obj: any, key: string): number {
+  let count = 0;
+
+  for (const k in obj) {
+    if (k === key) {
+      count++;
+    }
+    const value = obj[k];
+    if (typeof value === "object" && value !== null) {
+      count += countOccurrences(value, key);
+    }
+  }
+
+  return count;
+}
+
+const data = { model: "A", s: { model: "B" } };
+console.log(countOccurrences(data, "model")); // 2
