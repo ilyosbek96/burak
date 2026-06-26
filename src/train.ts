@@ -183,3 +183,14 @@ function countOccurrences(obj: any, key: string): number {
 
 const data = { model: "A", s: { model: "B" } };
 console.log(countOccurrences(data, "model")); // 2
+// =================== MITAS Y  ===================
+console.log("======== MITASK-Y =======");
+function findIntersection(arr1: number[], arr2: number[]): number[] {
+  const set1 = new Set(arr1);
+
+  const intersection = arr2.filter((value) => set1.has(value));
+
+  return Array.from(new Set(intersection));
+}
+
+console.log(findIntersection([1, 2, 3], [3, 2, 0]));
