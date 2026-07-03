@@ -16,8 +16,13 @@ import memberController from "./controllers/member.controller";
 // router.get("/signup", memberController.getSignup);
 
 // call qismi
-router.post("/login", memberController.login);
+/** =========== Member =========== */
+router.post("/member/login", memberController.login);
 // routerAdmin.post("/login", restaurantController.processLogin);
-router.post("/signup", memberController.signup);
+router.post("/member/signup", memberController.signup);
+router.get("/member/detail", memberController.verifyAuth);
 
+/** =========== Product =========== */
+
+/** =========== Order =========== */
 export default router;
