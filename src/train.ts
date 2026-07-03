@@ -8,6 +8,9 @@
   - Error handling
 */
 
+import { memberController, authService } from "controllers/member.controller";
+import { Response, NextFunction } from "express";
+
 //============= Request API APLIKESHIN PROGRAMMING INTERFEYS =============
 /** 
  TREDITIONAL API (form POST)
@@ -211,3 +214,18 @@ function sumEvens(arr: number[]) {
 }
 
 console.log(sumEvens([1, 2, 3]));
+memberController.retrieveAuth = async (
+  req: ExtetdedRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const token = req.cookies["accessToken"];
+    if (token) req.member = await authService.checkAuth(token);
+    next();
+    // console.log("member:", member);
+  } catch (err) {
+    console.log("Error, retrieveAuth:", err);
+    next();
+  }
+};
