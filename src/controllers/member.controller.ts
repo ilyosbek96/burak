@@ -79,7 +79,7 @@ memberController.getMemberDetail = async (
     console.log("getMemberDetail");
     const result = await memberService.getMemberDetail(req.member);
 
-    res.status(HttpCode.OK).json({ logout: true });
+    res.status(HttpCode.OK).json(result);
   } catch (err) {
     console.log("Error, getMemberDetail:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
