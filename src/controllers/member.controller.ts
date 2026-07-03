@@ -4,9 +4,11 @@ import { T } from "../libs/types/common";
 import { LoginInput, Member, MemberInput } from "../libs/types/member";
 import MemberService from "../models/Member.service";
 import Errors from "../libs/Errors";
+import AuthServece from "../models/Auth.service";
 
 // REACT SPA SINGL PAGE APLICATION
 const memberService = new MemberService();
+const authService = new AuthServece();
 const memberController: T = {};
 memberController.signup = async (req: Request, res: Response) => {
   try {
@@ -14,6 +16,8 @@ memberController.signup = async (req: Request, res: Response) => {
     console.log("body", req.body);
     const input: MemberInput = req.body,
       result: Member = await memberService.signup(input); // await (async) birga ishlatiladi
+    const token = await authService.createToken(result);
+    console.log("toke =>", token);
     // TODO: TOKENS AUTHENTICATION
 
     res.json({ member: result });
@@ -30,8 +34,11 @@ memberController.login = async (req: Request, res: Response) => {
     console.log("login");
     // console.log("body:", req.body);
     const input: LoginInput = req.body,
-      result = await memberService.login(input);
+      result = await memberService.login(input),
+      token = await authService.createToken(result);
+    console.log("token =>", token);
     // TODO: TOKENS AUTHENTICATION
+    // console.log("result:", result);
 
     res.json({ member: result });
   } catch (err) {
