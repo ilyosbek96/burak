@@ -37,6 +37,7 @@ router.post(
   uploader("members").single("memberImage"),
   memberController.updateMember,
 );
+router.get("/member/top-users", memberController.getTopUsers);
 
 /** =========== Product =========== */
 

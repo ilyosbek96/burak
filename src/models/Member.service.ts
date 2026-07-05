@@ -89,6 +89,20 @@ class MemberService {
     if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
     return result;
   }
+
+  public async getTopUsers(): Promise<Member[]> {
+    const result = await this.memberModel
+      .find({
+        memberStatus: MemberStatus.ACTIVE,
+        memberPoints: { $gte: 1 },
+      })
+      .sort({ memberPoints: -1 }) //  memberPoints: -1 (desc) 1(asc)
+      .limit(4)
+      .exec();
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    return result;
+  }
+
   //**============================== SSR========================================== */
   // bssr manosi backend server side rendering yani backendda frontendni qurvolish uni EJS ORQALIK QILAMIZ
   /** =================== (BSSR), SSR =================*/
