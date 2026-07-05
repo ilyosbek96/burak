@@ -18,6 +18,7 @@ import uploader from "./libs/utils/uploader";
 
 // call qismi
 /** =========== Member =========== */
+router.get("/member/restaurant", memberController.getRestaurant);
 router.post("/member/login", memberController.login);
 // routerAdmin.post("/login", restaurantController.processLogin);
 router.post("/member/signup", memberController.signup);
