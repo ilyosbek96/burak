@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
 import memberController from "./controllers/member.controller";
+import uploader from "./libs/utils/uploader";
 
 // router.get("/", (req: Request, res: Response) => {
 //     res.send("Home Page");
@@ -29,6 +30,12 @@ router.get(
   "/member/detail",
   memberController.verifyAuth,
   memberController.getMemberDetail,
+);
+router.post(
+  "/member/update",
+  memberController.verifyAuth,
+  uploader("members").single("memberImage"),
+  memberController.updateMember,
 );
 
 /** =========== Product =========== */
