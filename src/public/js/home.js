@@ -2,6 +2,7 @@ console.log("Home frontend javascript file");
 
 function fitElementToParent(el, padding) {
   let timeout = null;
+lok''
 
   function resize() {
     if (timeout) clearTimeout(timeout);
