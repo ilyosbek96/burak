@@ -1,5 +1,5 @@
 /* ================================ import { Request, Response } from "express"; ============================*/
-import { Request, Response } from "express"; // iport qilish kerak bo'ladi, chunki bu controllerda req va res ishlatiladi, shuning uchun ularni import qilish kerak bo'ladi
+import { query, Request, Response } from "express"; // iport qilish kerak bo'ladi, chunki bu controllerda req va res ishlatiladi, shuning uchun ularni import qilish kerak bo'ladi
 
 /* ======================== iimport Errors, { HttpCode, Message } from "../libs/Errors"; ===================*/
 import Errors, { HttpCode, Message } from "../libs/Errors"; // Errors, HttpCode, Message import qilish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun Errors, HttpCode, Message ishlatiladi, shuning uchun ularni import qilish kerak bo'ladi
@@ -11,10 +11,11 @@ import { T } from "../libs/types/common"; // T import qilish kerak bo'ladi, chun
 import ProductService from "../models/Product.service"; // ProductService import qilish kerak bo'ladi, chunki bu controllerda ProductService ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
 
 /* ======================== import { ProductInput } from "../libs/types/product"; ===================*/
-import { ProductInput } from "../libs/types/product"; // ProductInput import qilish kerak bo'ladi, chunki bu controllerda ProductInput tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
+import { ProductInput, ProductInquiry } from "../libs/types/product"; // ProductInput import qilish kerak bo'ladi, chunki bu controllerda ProductInput tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
 
 /* ======================== import { AdminRequest } from "../libs/types/member"; ===================*/
 import { AdminRequest } from "../libs/types/member"; // AdminRequest import qilish kerak bo'ladi, chunki bu controllerda AdminRequest tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
+import { ProductCollection } from "../libs/enums/product.enum";
 // =============================== test ===========================
 // import { AdminRequest } from "../libs/types/member";
 
@@ -26,9 +27,33 @@ const productController: T = {}; // productController ni T tipida bo'sh objectga
 // =============================== test ===========================
 // productController.getAllProducts = async (req: AdminRequest, res: Response)
 
-/** SPA => SINGLE PAGE APLICATION */
+/** ==================SPA => SINGLE PAGE APLICATION ==================*/
+productController.getProducts = async (req: Request, res: Response) => {
+  try {
+    console.log("getProducts");
+    /*const query = req.query; */ //urlda yashedi ? name=devid (qo'shish (&)) va get methoddan foydalaniladi
+    const { page, limit, order, productCollection, search } = req.query; //{gullik qavus malumotni yoyishda ishlatiladi}
+    /*console.log(req.query);*/ // kerakligini chaqirish uchun `superstring orqalik misol: page:${page}`qilinadi
+    const inquiry: ProductInquiry = {
+      order: String(order),
+      page: Number(page),
+      limit: Number(limit),
+    };
+    if (productCollection)
+      inquiry.productCollection = productCollection as ProductCollection;
+    if (search) inquiry.search = String(search);
+    const result = await productService.getProducts(inquiry);
+    /*const params = req.params;*/
+    /*console.log("req:params:", params);*/ //urlda yashedi urlga flesh(/)orqalik malmot qo'shiladi va routerga urldan kegin(/: qo'yib va get methoddan foydalaniladiishtalgancha malumot qo'shsa bo;ladi)
+    res.status(HttpCode.OK).json(result);
+  } catch (err) {
+    console.log("Error getProducts:", err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
 
-/** SSR */
+/** =========================== SSR ===========================*/
 /* productController.getAllProducts ni async functionga tenglashtirish kerak bo'ladi, chunki bu controllerda getAllProducts ishlatiladi, shuning uchun uni yaratish kerak bo'ladi parametr sifatida req va res arrow function orqalik try catch operatsiyasini amalga oshirish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun try catch operatsiyasi ishlatiladi, shuning uchun uni yaratish kerak bo'ladi */
 productController.getAllProducts = async (req: Request, res: Response) => {
   try {
