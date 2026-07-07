@@ -28,8 +28,8 @@ class ProductService {
     }
     const sort: T =
       inquiry.order === "productPrice"
-        ? { [inquiry.order]: 1 } // [daynamic object(key)]
-        : { [inquiry.order]: -1 };
+        ? { [inquiry.order]: 1 } // [daynamic object(key)] (productPrice kattasidan boshlab olib beradi 3,2,1)
+        : { [inquiry.order]: -1 }; //productPrice dan boshqa productlarni boshidan 1,2,3
     const result = await this.productModel
       .aggregate([
         { $match: match },
