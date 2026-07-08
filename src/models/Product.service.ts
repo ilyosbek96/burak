@@ -11,11 +11,16 @@ import {
 // import ProductModel from "../schema/Product.model";
 import ProductModel from "../schema/Product.model";
 import { T } from "../libs/types/common";
+import ViewService from "./View.servece";
+import { ViewGroup } from "../libs/enums/view.enum";
+import { ViewInput } from "../libs/types/view";
 
 class ProductService {
   private readonly productModel;
+  public viewService;
 
   constructor() {
+    this.viewService = new ViewService();
     this.productModel = ProductModel;
   }
   /** ======================= SPA ======================= */
@@ -55,8 +60,31 @@ class ProductService {
       .findOne({ _id: productId, productStatus: ProductStatus.PROCESS })
       .exec();
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
-
-    //TODO: If authenticated users => fist => view log creation
+    if (memberId) {
+      //TODO: If authenticated users => fist => view log creation
+      // Check  Existence
+      const input: ViewInput = {
+        memberId: memberId,
+        viewRefId: productId,
+        viewGroup: ViewGroup.PRODUCT,
+      };
+      const existView = await this.viewService.checkViewExistence(input);
+      // Insert New Log
+      console.log("exist:", !!existView);
+      if (!existView) {
+        // Insert View
+        // console.log("PLANNING TO INSERT NEW VIEW");
+        await this.viewService.insertMemberView(input);
+        // Increase Counts
+        result = await this.productModel
+          .findByIdAndUpdate(
+            productId,
+            { $inc: { productViews: +1 } },
+            { new: true },
+          )
+          .exec();
+      }
+    }
 
     return result;
   }
