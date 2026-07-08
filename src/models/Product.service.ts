@@ -1,4 +1,5 @@
 import { ProductStatus } from "../libs/enums/product.enum";
+import { ObjectId } from "mongoose";
 import { shapeIntoMongooseObjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import {
@@ -18,6 +19,8 @@ class ProductService {
     this.productModel = ProductModel;
   }
   /** ======================= SPA ======================= */
+
+  /** ====================== getProducts ====================== */
   public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
     // console.log("inquiry:", inquiry);
     const match: T = { productStatus: ProductStatus.PROCESS };
@@ -41,11 +44,28 @@ class ProductService {
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
     return result;
   }
+  /** ====================== getProduct ====================== */
+  public async getProduct(
+    memberId: ObjectId | null,
+    id: string,
+  ): Promise<Product> {
+    const productId = shapeIntoMongooseObjectId(id);
+
+    let result = await this.productModel
+      .findOne({ _id: productId, productStatus: ProductStatus.PROCESS })
+      .exec();
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    //TODO: If authenticated users => fist => view log creation
+
+    return result;
+  }
 
   /** ======================= SSR ======================= */
 
   // define
 
+  /** ====================== getAllProducts ====================== */
   public async getAllProducts(): Promise<Product[]> {
     const result = await this.productModel.find().exec();
 
@@ -55,6 +75,7 @@ class ProductService {
     return result;
   }
 
+  /** ====================== createNewProduct ====================== */
   public async createNewProduct(
     input: ProductInput,
   ) /** ProductInput tipiodagi input qabul qilanadi*/ : Promise<Product> {
@@ -65,6 +86,8 @@ class ProductService {
       throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
     }
   }
+
+  /** ====================== updateChosenProduct ====================== */
   public async updateChosenProduct(
     id: string,
     input: ProductUpdateInput,
