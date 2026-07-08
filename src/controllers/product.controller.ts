@@ -14,7 +14,7 @@ import ProductService from "../models/Product.service"; // ProductService import
 import { ProductInput, ProductInquiry } from "../libs/types/product"; // ProductInput import qilish kerak bo'ladi, chunki bu controllerda ProductInput tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
 
 /* ======================== import { AdminRequest } from "../libs/types/member"; ===================*/
-import { AdminRequest } from "../libs/types/member"; // AdminRequest import qilish kerak bo'ladi, chunki bu controllerda AdminRequest tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
+import { AdminRequest, ExtendedRequest } from "../libs/types/member"; // AdminRequest import qilish kerak bo'ladi, chunki bu controllerda AdminRequest tipi ishlatiladi, shuning uchun uni import qilish kerak bo'ladi
 import { ProductCollection } from "../libs/enums/product.enum";
 // =============================== test ===========================
 // import { AdminRequest } from "../libs/types/member";
@@ -28,6 +28,8 @@ const productController: T = {}; // productController ni T tipida bo'sh objectga
 // productController.getAllProducts = async (req: AdminRequest, res: Response)
 
 /** ==================SPA => SINGLE PAGE APLICATION ==================*/
+
+/** ================= getProducts =================*/
 productController.getProducts = async (req: Request, res: Response) => {
   try {
     console.log("getProducts");
@@ -53,8 +55,27 @@ productController.getProducts = async (req: Request, res: Response) => {
   }
 };
 
+/** ================= getProduct =================*/
+productController.getProduct = async (req: ExtendedRequest, res: Response) => {
+  try {
+    console.log("getProduct");
+    const { id } = req.params;
+
+    const memberId = req.member?._id ?? null,
+      result = await productService.getProduct(memberId, id);
+
+    res.status(HttpCode.OK).json(result);
+  } catch (err) {
+    console.log("Error,getProduct:", err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
 /** =========================== SSR ===========================*/
 /* productController.getAllProducts ni async functionga tenglashtirish kerak bo'ladi, chunki bu controllerda getAllProducts ishlatiladi, shuning uchun uni yaratish kerak bo'ladi parametr sifatida req va res arrow function orqalik try catch operatsiyasini amalga oshirish kerak bo'ladi, chunki bu controllerda xatoliklarni boshqarish uchun try catch operatsiyasi ishlatiladi, shuning uchun uni yaratish kerak bo'ladi */
+
+/** ================= getAllProducts =================*/
 productController.getAllProducts = async (req: Request, res: Response) => {
   try {
     console.log("getAllProducts");
@@ -74,6 +95,7 @@ productController.getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
+/** ================= createNewProduct =================*/
 productController.createNewProduct = async (
   req: AdminRequest,
   res: Response,
@@ -112,6 +134,8 @@ productController.createNewProduct = async (
     // res.json({});
   }
 };
+
+/** ================= updateChosenProduct =================*/
 productController.updateChosenProduct = async (req: Request, res: Response) => {
   try {
     console.log("updateChosenProduct");
