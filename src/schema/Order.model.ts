@@ -7,7 +7,7 @@ const orederSchema = new Schema(
       type: Number,
       required: true,
     },
-    orderDeliver: {
+    orderDelivery: {
       type: Number,
       required: true,
     },
