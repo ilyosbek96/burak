@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import path from "path";
 import router from "./router";
@@ -24,6 +25,7 @@ app.use("/uploads", express.static("./uploads"));
 app.use(express.urlencoded({ extended: true })); // middleware DP > traditional api support qilish uchun kerak bo'ladi, chunki frontenddan kelayotgan ma'lumotlar urlencoded formatida bo'ladi, uni js objectga aylantirish uchun kerak bo'ladi
 app.use(cookieParser()); // middleware DP > cookie support qilish uchun kerak bo'ladi, chunki frontenddan kelayotgan ma'lumotlar cookie formatida bo'ladi, uni js objectga aylantirish uchun kerak bo'ladi
 app.use(express.json()); // middleware DP > rest api support qilish uchun kerak bo'ladi, chunki frontenddan kelayotgan ma'lumotlar json formatida bo'ladi, uni js objectga aylantirish uchun kerak bo'ladi
+app.use(cors({ credentials: true, origin: true }));
 app.use(morgan(MORGAN_CONFIG)); // (\n hegingi qatorga o'tish degani)
 
 /** 2-SESSIONS **/ // Middleware sessionni ishlatish uchun kerak bo'ladi, chunki foydalanuvchi ma'lumotlarini saqlash va boshqarish uchun kerak bo'ladi, masalan, foydalanuvchi tizimga kirganida uning ma'lumotlarini saqlash va keyingi so'rovlarida bu ma'lumotlarni olish uchun kerak bo'ladi
