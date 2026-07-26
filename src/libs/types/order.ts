@@ -9,7 +9,7 @@ export interface OrderItem {
   orderId: ObjectId;
   productId: ObjectId;
   createdAt: Date;
-  uptadeAr: Date;
+  updatedAt: Date;
 }
 
 export interface Order {
@@ -19,7 +19,7 @@ export interface Order {
   orderStatus: OrderStatus;
   memberId: ObjectId;
   createdAt: Date;
-  uptadeAr: Date;
+  updatedAt: Date;
   /** from aggregation */
   orderItems: OrderItem[];
   productData: Product[];
