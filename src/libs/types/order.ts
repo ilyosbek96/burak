@@ -1,4 +1,4 @@
-import { OrderStatus } from "libs/enums/order.enum";
+import { OrderStatus } from "../enums/order.enum";
 import { ObjectId } from "mongoose";
 import { Product } from "./product";
 
